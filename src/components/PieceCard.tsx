@@ -16,26 +16,34 @@ const PieceCard = (props : PieceCardProps) => {
         return `${day}/${month}/${year}`;
     }
 
-    // DOUBLE CLICK SUR LA CARTE POUR MODIFIER LA PIECE
+    // GERER SI LA COMMANDE EST PASSEE
+    const handleOrdered = () => {}
+
+    // GERER SI LA COMMANDE EST RECU
+    const handleReceived = () => {}
+
+
     
     return (
         <div className={"pieceCard"} onDoubleClick={() => setIsEditing(!isEditing)}>
-            {!isEditing && <div className={"pieceInfos"}>
-                <p className={"commandeDate"}>{getDateFormat(props.piece.commandeDate)}</p>
-                <p className={"pieceMark"}>{props.piece.pieceMark}</p>
-                <p className={"pieceRef"}>{props.piece.pieceRef}</p>
-                <p className={"quantity"}>{props.piece.quantity}</p>
-                <p className={"supplier"}>{props.piece.supplier}</p>
-            </div>}
-            {isEditing && <div className={"pieceInfos"}>
-                <input type="date" />
-                <input type="text" />
-                <input type="text" />
-                <input type="number" />
-                <input type="text" />
-            </div>}
-            <input type="checkbox" />
-            <button className={"delete"}>supprimer</button>
+            <p className={"commandeDate"}>{getDateFormat(props.piece.commandeDate)}</p>
+            <p className={"pieceMark"}>{props.piece.pieceMark}</p>
+            <p className={"pieceModel"}>{props.piece.pieceModel}</p>
+            <p className={"pieceRef"}>{props.piece.pieceRef}</p>
+            <p className={"quantity"}>{props.piece.quantity}</p>
+            <p className={"supplier"}>{props.piece.supplier}</p>
+            <button 
+                className={props.piece.isOrdered ? "orderedBtn ordered" : "orderedBtn"}
+                onClick={() => handleOrdered()}
+            >
+                <img src="/icons/commanded.svg" alt="order" width={24} height={24}/>
+            </button>
+            <button 
+                className={"deleteBtn"}
+                onClick={() => handleReceived()}
+                >
+                <img src="/icons/received.svg" alt="delete" width={24} height={24}/>
+            </button>
         </div>
   )
 }
