@@ -1,28 +1,31 @@
 import { useEffect, useState } from "react";
 import { PiecesSuppliers } from "../data";
-import { Piece, ListOfPieces } from "../types";
+import { Piece, ListOfPieces, PiecesSuppliersStates } from "../types";
+import getPiecesSuppliersStates from "../CRUDRequests/getSuppliersStates";
+import getPiecesList from "../CRUDRequests/getPiecesList";
 
 export type PiecesListProps = {
   listOfPieces : ListOfPieces;
 }
 
-type PiecesSupplierStateProps = {
-  supplier: string,
-  wantToDisplay: boolean
-}[]
-
 const PiecesLister = () => {
-  const [piecesSuppliersState, setPiecesSuppliersState] = useState<PiecesSupplierStateProps>();
+  const [piecesSuppliersStates, setPiecesSuppliersStates] = useState<PiecesSuppliersStates>();
+  const [piecesListStates, setPiecesListStates] = useState<ListOfPieces | []>();
 
   useEffect(() => {
-
-  }, [])
+    const suppliersData = getPiecesSuppliersStates();
+    if (suppliersData) setPiecesSuppliersStates(suppliersData);
+    else setPiecesSuppliersStates(PiecesSuppliers.map(supplier => ({supplier, wantToDisplay: true})));
+    const piecesList = getPiecesList();
+    if (piecesList) setPiecesListStates(piecesList);
+    else setPiecesListStates([]);    
+  }, [piecesSuppliersStates, piecesListStates])
 
   const handleSupplierbtnClick = (index: number) => {
-    if (!piecesSuppliersState) return;
-    let newPiecesSuppliersState = [...piecesSuppliersState];
-    newPiecesSuppliersState[index].wantToDisplay = !newPiecesSuppliersState[index].wantToDisplay;
-    setPiecesSuppliersState(newPiecesSuppliersState);
+    if (!piecesSuppliersStates) return;
+    let newPiecesSuppliersStates = [...piecesSuppliersStates];
+    newPiecesSuppliersStates[index].wantToDisplay = !newPiecesSuppliersStates[index].wantToDisplay;
+    setPiecesSuppliersStates(newPiecesSuppliersStates);
   }
 
 
@@ -31,7 +34,7 @@ const PiecesLister = () => {
       <div className={"piecesListOptions"}>
         <div className={"suppliersSelector"}>
           <p>affichage des fournisseurs :</p>
-          {piecesSuppliersState?.map((supplier, index) => (
+          {piecesSuppliersStates?.map((supplier, index) => (
             <button 
               className={"supplierBtn"}
               key={index}

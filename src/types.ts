@@ -11,7 +11,7 @@ export type Piece = {
 
 export type ListOfPieces = Piece[];
 
-export type PiecesSuppliersData = {
+export type PiecesSuppliersStates = {
     supplier: string,
     wantToDisplay: boolean
 }[]
