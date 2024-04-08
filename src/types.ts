@@ -8,3 +8,10 @@ export type Piece = {
     isOrdered: boolean,
     isReceived: boolean
 }
+
+export type ListOfPieces = Piece[];
+
+export type PiecesSuppliersData = {
+    supplier: string,
+    wantToDisplay: boolean
+}[]

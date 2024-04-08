@@ -21,8 +21,6 @@ const PieceCard = (props : PieceCardProps) => {
 
     // GERER SI LA COMMANDE EST RECU
     const handleReceived = () => {}
-
-
     
     return (
         <div className={"pieceCard"} onDoubleClick={() => setIsEditing(!isEditing)}>
