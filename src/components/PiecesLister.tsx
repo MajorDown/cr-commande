@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { PiecesSuppliers } from "../data";
-import { Piece, ListOfPieces, PiecesSuppliersStates } from "../types";
+import { ListOfPieces, PiecesSuppliersStates } from "../types";
 import getPiecesSuppliersStates from "../CRUDRequests/getSuppliersStates";
 import getPiecesList from "../CRUDRequests/getPiecesList";
 
@@ -28,6 +28,16 @@ const PiecesLister = () => {
     setPiecesSuppliersStates(newPiecesSuppliersStates);
   }
 
+  const renderPiecesListerBySupplier = (supplier: string) => {
+    if (!piecesListStates) return null;
+    return piecesListStates
+      .filter(piece => piece.supplier === supplier && piecesSuppliersStates?.find(s => s.supplier === supplier)?.wantToDisplay)
+      .map((piece, index) => (
+        <div key={index}>
+          {piece.pieceMark} - {piece.pieceModel} - {piece.quantity}
+        </div>
+      ));
+  };
 
   return (
     <div className={"piecesList"}>
@@ -36,7 +46,7 @@ const PiecesLister = () => {
           <p>affichage des fournisseurs :</p>
           {piecesSuppliersStates?.map((supplier, index) => (
             <button 
-              className={"supplierBtn"}
+              className={supplier.wantToDisplay ? "supplierBtn active" : "supplierBtn"}
               key={index}
               onClick={() => handleSupplierbtnClick(index)}
             >
@@ -44,6 +54,16 @@ const PiecesLister = () => {
             </button>
           ))}
         </div>
+      </div>
+      <div className={"piecesListContent"}>
+        <div className={"mobilaxLister"}>{renderPiecesListerBySupplier("Mobilax")}</div>
+        <div className={"utopyaLister"}>{renderPiecesListerBySupplier("Utopya")}</div>
+        <div className={"crdLister"}>{renderPiecesListerBySupplier("CRD")}</div>
+        <div className={"ebayLister"}>{renderPiecesListerBySupplier("Ebay")}</div>
+        <div className={"aliExpressLister"}>{renderPiecesListerBySupplier("AliExpress")}</div>
+        <div className={"touchedeclavierLister"}>{renderPiecesListerBySupplier("Touchedeclavier")}</div>
+        <div className={"macInfoLister"}>{renderPiecesListerBySupplier("MacInfo")}</div>
+        <div className={"othersLister"}>{renderPiecesListerBySupplier("autres")}</div>
       </div>
     </div>
   )}
