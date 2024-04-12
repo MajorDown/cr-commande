@@ -5,6 +5,11 @@ export type Piece = {
     pieceRef: string,
     quantity: number,
     supplier: string,
+    isClientWaitingFor: false | {
+        supportNumber: number,
+        isDP: boolean,
+        isSP: boolean
+    }
     isOrdered: boolean,
     isReceived: boolean
 }
