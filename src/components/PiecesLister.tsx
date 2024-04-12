@@ -3,6 +3,7 @@ import { PiecesSuppliers } from "../data";
 import { ListOfPieces, PiecesSuppliersStates } from "../types";
 import getPiecesSuppliersStates from "../CRUDRequests/getSuppliersStates";
 import getPiecesList from "../CRUDRequests/getPiecesList";
+import updatePiecesSuppliersStates from "../CRUDRequests/updateSuppliersStates";
 
 export type PiecesListProps = {
   listOfPieces : ListOfPieces;
@@ -11,23 +12,36 @@ export type PiecesListProps = {
 const PiecesLister = () => {
   const [piecesSuppliersStates, setPiecesSuppliersStates] = useState<PiecesSuppliersStates>();
   const [piecesListStates, setPiecesListStates] = useState<ListOfPieces | []>();
+  const [wantRerenderSuppliers, setWantRerenderSuppliers] = useState(false);
 
+  // RECUPERER LES ETATS DES FOURNISSEURS
   useEffect(() => {
-    const suppliersData = getPiecesSuppliersStates();
-    if (suppliersData) setPiecesSuppliersStates(suppliersData);
-    else setPiecesSuppliersStates(PiecesSuppliers.map(supplier => ({supplier, wantToDisplay: true})));
+    if (wantRerenderSuppliers) {
+      const suppliersData = getPiecesSuppliersStates();
+      if (suppliersData) setPiecesSuppliersStates(suppliersData);
+      else setPiecesSuppliersStates(PiecesSuppliers.map(supplier => ({supplier, wantToDisplay: true})));
+      setWantRerenderSuppliers(false);
+    }
+  }, [wantRerenderSuppliers])
+  
+  // RECUPERER LA LISTE DES PIECES
+  useEffect(() => {
     const piecesList = getPiecesList();
     if (piecesList) setPiecesListStates(piecesList);
-    else setPiecesListStates([]);    
-  }, [piecesSuppliersStates, piecesListStates])
+    else setPiecesListStates([]);        
+  }, [])
 
-  const handleSupplierbtnClick = (index: number) => {
+  // GESTION DE L'AFFICHAGE DES FOURNISSEURS
+  const handleSupplierStateChange = (index: number) => {
     if (!piecesSuppliersStates) return;
     let newPiecesSuppliersStates = [...piecesSuppliersStates];
     newPiecesSuppliersStates[index].wantToDisplay = !newPiecesSuppliersStates[index].wantToDisplay;
     setPiecesSuppliersStates(newPiecesSuppliersStates);
+    updatePiecesSuppliersStates(newPiecesSuppliersStates);
+    setWantRerenderSuppliers(true);
   }
 
+  // RENDER LA LISTE DES PIECES PAR FOURNISSEUR
   const renderPiecesListerBySupplier = (supplier: string) => {
     if (!piecesListStates) return null;
     return piecesListStates
@@ -48,7 +62,7 @@ const PiecesLister = () => {
             <button 
               className={supplier.wantToDisplay ? "supplierBtn active" : "supplierBtn"}
               key={index}
-              onClick={() => handleSupplierbtnClick(index)}
+              onClick={() => handleSupplierStateChange(index)}
             >
               {supplier.supplier}
             </button>
@@ -56,14 +70,14 @@ const PiecesLister = () => {
         </div>
       </div>
       <div className={"piecesListContent"}>
-        <div className={"mobilaxLister"}>{renderPiecesListerBySupplier("Mobilax")}</div>
-        <div className={"utopyaLister"}>{renderPiecesListerBySupplier("Utopya")}</div>
-        <div className={"crdLister"}>{renderPiecesListerBySupplier("CRD")}</div>
-        <div className={"ebayLister"}>{renderPiecesListerBySupplier("Ebay")}</div>
-        <div className={"aliExpressLister"}>{renderPiecesListerBySupplier("AliExpress")}</div>
-        <div className={"touchedeclavierLister"}>{renderPiecesListerBySupplier("Touchedeclavier")}</div>
-        <div className={"macInfoLister"}>{renderPiecesListerBySupplier("MacInfo")}</div>
-        <div className={"othersLister"}>{renderPiecesListerBySupplier("autres")}</div>
+        {PiecesSuppliers.map(supplier => (
+          piecesSuppliersStates?.find(s => s.supplier === supplier)?.wantToDisplay && (
+            <div className={`supplierLister`} key={supplier}>
+              <p className={"supplierName"}>{supplier}</p>
+              <ul>{renderPiecesListerBySupplier(supplier)}</ul>              
+            </div>
+          )
+        ))}
       </div>
     </div>
   )}
