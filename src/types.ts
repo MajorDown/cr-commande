@@ -12,6 +12,7 @@ export type Piece = {
     }
     isOrdered: boolean,
     isReceived: boolean
+    moreInformation? : string
 }
 
 export type ListOfPieces = Piece[];
