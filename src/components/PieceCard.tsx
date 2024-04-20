@@ -29,7 +29,12 @@ const PieceCard = (props : PieceCardProps) => {
             <p className={"pieceModel"}>{props.piece.pieceModel}</p>
             <p className={"pieceRef"}>{props.piece.pieceRef}</p>
             <p className={"quantity"}>{props.piece.quantity}</p>
-            <p className={"supplier"}>{props.piece.supplier}</p>
+            {props.piece.isClientWaitingFor && 
+                <p className={"isClientWaitingFor"}>
+                    {props.piece.isClientWaitingFor.supportNumber} : 
+                    {props.piece.isClientWaitingFor.isDP && "DP"}
+                    {props.piece.isClientWaitingFor.isSP && "SP"}
+                </p>}
             <button 
                 className={props.piece.isOrdered ? "orderedBtn ordered" : "orderedBtn"}
                 onClick={() => handleOrdered()}
