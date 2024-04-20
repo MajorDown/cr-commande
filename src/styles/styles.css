@@ -95,17 +95,55 @@ footer {
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 20px;
+    padding: 5vw;
     z-index: 100;
 }
 
 .uiModalCloseBtn {
     position: absolute;
-    top: 10px;
-    right: 10px;
+    top: 1vw;
+    right: 1vw;
     padding: 5px;
     background-color: transparent;
     font-size: large;
     color: white;
     cursor: pointer;
+}
+
+#addNewPieceForm {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 90vw;
+}
+
+#addNewPieceForm .inputWrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    margin: 10px;
+    color: white
+}
+
+#addNewPieceForm .submitBtn {
+    cursor: pointer;
+    margin: 10px;
+    padding: 5px;
+}
+
+#addNewPieceForm .inputWrapper input,
+#addNewPieceForm .inputWrapper select,
+#addNewPieceForm .inputWrapper textarea {
+    padding: 5px;
+    border-radius: 10px;
+}
+
+#addNewPieceForm .inputWrapper input[type="text"] {
+    width: 200px;
+}
+
+#addNewPieceForm .inputWrapper input[type="number"] {
+    width: 100px;
 }

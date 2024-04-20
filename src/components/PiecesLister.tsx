@@ -6,6 +6,7 @@ import getPiecesList from "../CRUDRequests/getPiecesList";
 import updatePiecesSuppliersStates from "../CRUDRequests/updateSuppliersStates";
 import { PieceCard } from "./PieceCard";
 import UIModal from "./UIModal";
+import AddNewPiecesForm from "./AddNewPiecesForm";
 
 export type PiecesListProps = {
   listOfPieces : ListOfPieces;
@@ -16,6 +17,7 @@ const PiecesLister = () => {
   const [piecesListStates, setPiecesListStates] = useState<ListOfPieces | []>();
   const [wantRerenderSuppliers, setWantRerenderSuppliers] = useState<boolean>(true);
   const [wantNewPiece, setWantNewPiece] = useState<boolean>(false);
+  const [defaultPieceMark, setDefaultPieceMark] = useState<string>("");
 
   // RECUPERER LES ETATS DES FOURNISSEURS
   useEffect(() => {
@@ -54,10 +56,18 @@ const PiecesLister = () => {
       ));
   };
 
+  const handleNewPiece = (supplier: string) => {
+    setWantNewPiece(true);
+    setDefaultPieceMark(supplier);
+
+  }
+
   return (
     <div className={"piecesList"}>
-      {wantNewPiece && <UIModal onClose={() => setWantNewPiece(false)}>
-        <p>kikou</p></UIModal>}
+      {wantNewPiece && 
+        <UIModal onClose={() => setWantNewPiece(false)}>
+          <AddNewPiecesForm defaultPieceMark={defaultPieceMark}/>
+        </UIModal>}
       <div className={"piecesListOptions"}>
         <div className={"suppliersSelector"}>
           <p>affichage des fournisseurs :</p>
@@ -79,7 +89,7 @@ const PiecesLister = () => {
               <p className={"supplierName"}>{supplier}
                   <button 
                     className={"addNewPiece"}
-                    onClick={() => setWantNewPiece(true)}
+                    onClick={() => handleNewPiece(supplier)}
                   >
                     <strong>+</strong>
                   </button>
