@@ -32,29 +32,40 @@ const PieceCard = (props : PieceCardProps) => {
     
     return (
         <div className={"pieceCard"} onDoubleClick={() => setIsEditing(!isEditing)}>
+            <div className={"pieceCardBtns"}>
+                <button 
+                    className={props.piece.isOrdered ? "orderedBtn ordered" : "orderedBtn"}
+                    onClick={() => handleOrdered()}
+                >
+                    <img src="/icons/commanded.svg" alt="order" width={24} height={24}/>
+                </button>
+                <button 
+                    className={props.piece.isReceived ? "receivedBtn received" : "receivedBtn"}
+                    onClick={() => handleOrdered()}
+                >
+                    <img src="/icons/received.svg" alt="receive" width={24} height={24}/>
+                </button>
+            </div>    
             <p className={"commandeDate"}>{getDateFormat(props.piece.commandeDate)}</p>
             <p className={"pieceMark"}>{props.piece.pieceMark}</p>
             <p className={"pieceModel"}>{props.piece.pieceModel}</p>
             <p className={"pieceRef"}>{props.piece.pieceRef}</p>
-            <p className={"quantity"}>{props.piece.quantity}</p>
+            <p className={"quantity"}>x{props.piece.quantity}</p>
             {props.piece.isClientWaitingFor && 
                 <p className={"isClientWaitingFor"}>
-                    {props.piece.isClientWaitingFor.supportNumber} : 
-                    {props.piece.isClientWaitingFor.isDP && "DP"}
-                    {props.piece.isClientWaitingFor.isSP && "SP"}
-                </p>}
-            <button 
-                className={props.piece.isOrdered ? "orderedBtn ordered" : "orderedBtn"}
-                onClick={() => handleOrdered()}
-            >
-                <img src="/icons/commanded.svg" alt="order" width={24} height={24}/>
-            </button>
-            <button 
-                className={"deleteBtn"}
-                onClick={() => handleReceived()}
-                >
-                <img src="/icons/received.svg" alt="delete" width={24} height={24}/>
-            </button>
+                    {props.piece.isClientWaitingFor.supportNumber}:  
+                    {props.piece.isClientWaitingFor.isDP && " DP"}
+                    {props.piece.isClientWaitingFor.isSP && " SP"}
+                </p>
+            }
+            <div className={"pieceCardBtns"}>
+                <button 
+                    className={"deleteBtn"}
+                    onClick={() => handleReceived()}
+                    >
+                    <img src="/icons/trash.svg" alt="delete" width={24} height={24}/>
+                </button>
+            </div> 
         </div>
   )
 }
