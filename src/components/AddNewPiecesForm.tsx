@@ -14,6 +14,7 @@ const AddNewPiecesForm = (props: AddNewPiecesFormProps) => {
     const [pieceMark, setPieceMark] = useState<string>("");
     const [pieceModel, setPieceModel] = useState<string>("");
     const [pieceRef, setPieceRef] = useState<string>("");
+    const [pieceColor, setPieceColor] = useState<string>("");
     const [quantity, setQuantity] = useState<number>(1);
     const [isClientWaitingFor, setIsClientWaitingFor] = useState<boolean>(false);
     const [supportNumber, setSupportNumber] = useState<string>("");
@@ -28,6 +29,7 @@ const AddNewPiecesForm = (props: AddNewPiecesFormProps) => {
             pieceMark: pieceMark,
             pieceModel: pieceModel,
             pieceRef: pieceRef,
+            pieceColor: pieceColor,
             quantity: quantity,
             supplier: supplier,
             isClientWaitingFor: isClientWaitingFor ? {
@@ -97,6 +99,16 @@ const AddNewPiecesForm = (props: AddNewPiecesFormProps) => {
             />
         </div>
         <div className={"inputWrapper"}>
+            <label htmlFor="pieceColor">Couleur (facultatif):</label>
+            <input 
+                type="text" 
+                name="pieceColor" 
+                id="pieceColor"
+                value={pieceColor}
+                onChange={(e) => setPieceColor(e.target.value)}
+            />
+        </div>
+        <div className={"inputWrapper"}>
             <label htmlFor="quantity">Quantité :</label>
             <input 
                 required
@@ -153,7 +165,7 @@ const AddNewPiecesForm = (props: AddNewPiecesFormProps) => {
             </div>
         </>}
         <div className={"inputWrapper"}>
-            <label htmlFor="moreInformation">Informations supplémentaires :</label>
+            <label htmlFor="moreInformation">Informations supplémentaires (facultatif):</label>
             <textarea 
                 rows={5}
                 cols={30}

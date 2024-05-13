@@ -3,6 +3,7 @@ export type Piece = {
     pieceMark: string,
     pieceModel: string,
     pieceRef: string,
+    pieceColor?: string,
     quantity: number,
     supplier: string,
     isClientWaitingFor: false | {

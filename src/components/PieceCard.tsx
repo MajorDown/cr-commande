@@ -21,7 +21,7 @@ const PieceCard = (props : PieceCardProps) => {
         let day = padToTwoDigits(commandeDate.getDate());
         let month = padToTwoDigits(commandeDate.getMonth() + 1);
         let year = commandeDate.getFullYear();
-        return `${day}/${month}/${year}`;
+        return `le ${day}/${month}/${year}`;
     }
 
     // GERER SI LA COMMANDE EST PASSEE
@@ -29,6 +29,12 @@ const PieceCard = (props : PieceCardProps) => {
 
     // GERER SI LA COMMANDE EST RECU
     const handleReceived = () => {}
+
+    // GERER L'AFFICHAGE DES INFOS SUPPLEMENTAIRES
+    const handleMoreInfos = () => {}
+
+    // GERER LA SUPPRESSION DE LA PIECE
+    const handleDelete = () => {}
     
     return (
         <div className={"pieceCard"} onDoubleClick={() => setIsEditing(!isEditing)}>
@@ -49,23 +55,29 @@ const PieceCard = (props : PieceCardProps) => {
             <p className={"commandeDate"}>{getDateFormat(props.piece.commandeDate)}</p>
             <p className={"pieceMark"}>{props.piece.pieceMark}</p>
             <p className={"pieceModel"}>{props.piece.pieceModel}</p>
-            <p className={"pieceRef"}>{props.piece.pieceRef}</p>
+            <p className={"pieceRef"}>{props.piece.pieceRef} {props.piece.pieceColor && `(${props.piece.pieceColor})`}</p>
             <p className={"quantity"}>x{props.piece.quantity}</p>
-            {props.piece.isClientWaitingFor && 
-                <p className={"isClientWaitingFor"}>
-                    {props.piece.isClientWaitingFor.supportNumber}:  
+            <p className={"isClientWaitingFor"}>
+                {props.piece.isClientWaitingFor && (<>
+                    {props.piece.isClientWaitingFor.supportNumber} : 
                     {props.piece.isClientWaitingFor.isDP && " DP"}
-                    {props.piece.isClientWaitingFor.isSP && " SP"}
-                </p>
-            }
-            <div className={"pieceCardBtns"}>
+                    {props.piece.isClientWaitingFor.isSP && " SP"}                
+                </>)}
+            </p>
+            <div className={"pieceCardBtnsRight"}>
+                {props.piece.moreInformation && <img 
+                    src="/icons/moreInfos.svg" 
+                    alt="more info" 
+                    width={16} 
+                    height={16}
+                />}
                 <button 
                     className={"deleteBtn"}
-                    onClick={() => handleReceived()}
+                    onClick={() => handleDelete()}
                     >
                     <img src="/icons/trash.svg" alt="delete" width={24} height={24}/>
                 </button>
-            </div> 
+            </div>
         </div>
   )
 }

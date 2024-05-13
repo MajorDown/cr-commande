@@ -170,7 +170,7 @@ footer {
 .pieceCard {
     width: 100%;
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-start;
     align-items: center;
 }
 
@@ -179,7 +179,7 @@ footer {
     gap: 5px;
 }
 
-.pieceCardBtns button {
+.pieceCard button {
     background-color: transparent;
     border: none;
     padding: 0;
@@ -193,4 +193,41 @@ footer {
 .received {
     background-color: aquamarine;
     border-radius: 50%;
+}
+
+.commandeDate {
+    text-align: center;
+    width: 15%;
+}
+
+.pieceMark {
+    text-align: center;
+    width: 10%;
+}
+
+.pieceModel {
+    text-align: center;
+    width: 10%;
+}
+
+.pieceRef {
+    text-align: center;
+    width: 20%;
+}
+
+.quantity {
+    width: 5%;
+}
+
+.isClientWaitingFor {
+    width: 25%;
+}
+
+.pieceCardBtnsRight {
+    width: 15%;
+    display: flex;
+    gap: 5px;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 50%;
 }
