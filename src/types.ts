@@ -6,7 +6,7 @@ export type Piece = {
     quantity: number,
     supplier: string,
     isClientWaitingFor: false | {
-        supportNumber: number,
+        supportNumber: string,
         isDP: boolean,
         isSP: boolean
     }

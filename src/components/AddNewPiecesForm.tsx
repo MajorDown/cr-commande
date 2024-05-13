@@ -1,9 +1,12 @@
-import { useState } from "react";
+import { FormEvent, useState } from "react";
 import { CommonSuppliers, PiecesSuppliers } from "../data";
+import { Piece } from "../types";
+import createNewPiece from "../CRUDRequests/createNewPiece";
 
 
 type AddNewPiecesFormProps = {
     defaultPieceMark: string;
+    onCreate: () => void;
 }
 
 const AddNewPiecesForm = (props: AddNewPiecesFormProps) => {
@@ -18,11 +21,35 @@ const AddNewPiecesForm = (props: AddNewPiecesFormProps) => {
     const [isSP, setIsSP] = useState<boolean>(false);
     const [moreInformation, setMoreInformation] = useState<string>("");
 
+    const handleSubmit = (event: FormEvent) => {
+        event.preventDefault();
+        let newPiece: Piece = {
+            commandeDate: new Date(),
+            pieceMark: pieceMark,
+            pieceModel: pieceModel,
+            pieceRef: pieceRef,
+            quantity: quantity,
+            supplier: supplier,
+            isClientWaitingFor: isClientWaitingFor ? {
+                supportNumber: supportNumber,
+                isDP: isDP,
+                isSP: isSP
+            } : false,
+            isOrdered: false,
+            isReceived: false,
+            moreInformation: moreInformation
+        }
+        const request = createNewPiece(newPiece);
+        if (!request) alert("Erreur lors de l'ajout de la pièce");
+        else props.onCreate();
+    }
+
   return (
-    <form id={"addNewPieceForm"}>
+    <form id={"addNewPieceForm"} onSubmit={(event: FormEvent) => handleSubmit(event)}>
         <div className={"inputWrapper"}>
             <label htmlFor="commandeDate">Fournisseur :</label>
-            <select 
+            <select
+                required
                 name="supplier" 
                 id="supplier"
                 value={supplier}
@@ -35,6 +62,7 @@ const AddNewPiecesForm = (props: AddNewPiecesFormProps) => {
         <div className={"inputWrapper"}>
             <label htmlFor="pieceMark">Marque :</label>
             <select 
+                required
                 name="pieceMark" 
                 id="pieceMark"
                 value={pieceMark}
@@ -47,6 +75,7 @@ const AddNewPiecesForm = (props: AddNewPiecesFormProps) => {
         <div className={"inputWrapper"}>
             <label htmlFor="pieceModel">Modèle :</label>
             <input 
+                required
                 type="text" 
                 placeholder="A40, IPhone 11..."
                 name="pieceModel" 
@@ -57,7 +86,8 @@ const AddNewPiecesForm = (props: AddNewPiecesFormProps) => {
         </div>
         <div className={"inputWrapper"}>
             <label htmlFor="pieceRef">Référence :</label>
-            <input 
+            <input
+                required 
                 type="text" 
                 placeholder="écran complet, batterie..."
                 name="pieceRef" 
@@ -69,6 +99,7 @@ const AddNewPiecesForm = (props: AddNewPiecesFormProps) => {
         <div className={"inputWrapper"}>
             <label htmlFor="quantity">Quantité :</label>
             <input 
+                required
                 type="number"
                 min={1}
                 step={1} 
@@ -81,6 +112,7 @@ const AddNewPiecesForm = (props: AddNewPiecesFormProps) => {
         <div className={"inputWrapper"}>
             <label htmlFor="isClientWaitingFor">En attente pour client(s):</label>
             <input 
+
                 type="checkbox" 
                 name="isClientWaitingFor" 
                 id="isClientWaitingFor" 
@@ -100,7 +132,7 @@ const AddNewPiecesForm = (props: AddNewPiecesFormProps) => {
                 />
             </div>
             <div className={"inputWrapper"}>
-                <label htmlFor="isDP">DP ?</label>
+                <label htmlFor="isDP">Le client a déjà payé (DP) ?</label>
                 <input 
                     type="checkbox" 
                     name="isDP" 
@@ -110,7 +142,7 @@ const AddNewPiecesForm = (props: AddNewPiecesFormProps) => {
                 />
             </div>
             <div className={"inputWrapper"}>
-                <label htmlFor="isSP">SP ?</label>
+                <label htmlFor="isSP">L'appareil est sur place dans l'atelier (SP) ?</label>
                 <input 
                     type="checkbox" 
                     name="isSP" 
@@ -119,8 +151,7 @@ const AddNewPiecesForm = (props: AddNewPiecesFormProps) => {
                     onChange={(e) => setIsSP(e.target.checked)}
                 />
             </div>
-        </>
-        }
+        </>}
         <div className={"inputWrapper"}>
             <label htmlFor="moreInformation">Informations supplémentaires :</label>
             <textarea 

@@ -7,12 +7,20 @@ export type PieceCardProps = {
 
 const PieceCard = (props : PieceCardProps) => {
     const [isEditing, setIsEditing] = useState(false);
-
+       
     // MISE EN FORME DE COMMANDEDATE AU FORMAT DD/MM/YY
-    const getDateFormat = (date: Date) => {
-        let day = date.getDate();
-        let month = date.getMonth();
-        let year = date.getFullYear();
+    const getDateFormat = (date: Date): string => {
+        // FONCTION POUR PADDING A 2 CHIFFRES
+        const padToTwoDigits = (num: number): string => {
+            return num.toString().padStart(2, '0');
+        }
+        const commandeDate = new Date(date);
+        if (isNaN(commandeDate.getTime())) {
+            return "Date Err"; // Gérer les dates invalides
+        }
+        let day = padToTwoDigits(commandeDate.getDate());
+        let month = padToTwoDigits(commandeDate.getMonth() + 1);
+        let year = commandeDate.getFullYear();
         return `${day}/${month}/${year}`;
     }
 

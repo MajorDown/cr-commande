@@ -18,6 +18,7 @@ const PiecesLister = () => {
   const [wantRerenderSuppliers, setWantRerenderSuppliers] = useState<boolean>(true);
   const [wantNewPiece, setWantNewPiece] = useState<boolean>(false);
   const [defaultPieceMark, setDefaultPieceMark] = useState<string>("");
+  const [needToRefresh, setNeedToRefresh] = useState<boolean>(false);
 
   // RECUPERER LES ETATS DES FOURNISSEURS
   useEffect(() => {
@@ -35,6 +36,16 @@ const PiecesLister = () => {
     if (piecesList) setPiecesListStates(piecesList);
     else setPiecesListStates([]);        
   }, [])
+
+  // ACTUALISER LA LISTE DES PIECES APRES UN AJOUT
+  useEffect(() => {
+    if (needToRefresh) {
+      const piecesList = getPiecesList();
+      if (piecesList) setPiecesListStates(piecesList);
+      else setPiecesListStates([]);        
+      setNeedToRefresh(false);
+    }
+  }, [needToRefresh])
 
   // GESTION DE L'AFFICHAGE DES FOURNISSEURS
   const handleSupplierStateChange = (index: number) => {
@@ -62,11 +73,16 @@ const PiecesLister = () => {
 
   }
 
+  const handleRefresh = () => {
+    setWantNewPiece(false);
+    setNeedToRefresh(true);
+  }
+
   return (
     <div className={"piecesList"}>
       {wantNewPiece && 
         <UIModal onClose={() => setWantNewPiece(false)}>
-          <AddNewPiecesForm defaultPieceMark={defaultPieceMark}/>
+          <AddNewPiecesForm defaultPieceMark={defaultPieceMark} onCreate={() => handleRefresh()}/>
         </UIModal>}
       <div className={"piecesListOptions"}>
         <div className={"suppliersSelector"}>
