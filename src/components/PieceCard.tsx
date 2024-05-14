@@ -30,15 +30,12 @@ const PieceCard = (props : PieceCardProps) => {
     // GERER SI LA COMMANDE EST RECU
     const handleReceived = () => {}
 
-    // GERER L'AFFICHAGE DES INFOS SUPPLEMENTAIRES
-    const handleMoreInfos = () => {}
-
     // GERER LA SUPPRESSION DE LA PIECE
     const handleDelete = () => {}
     
     return (
         <div className={"pieceCard"} onDoubleClick={() => setIsEditing(!isEditing)}>
-            <div className={"pieceCardBtns"}>
+            <div className={"pieceCardBtnsLeft"}>
                 <button 
                     className={props.piece.isOrdered ? "orderedBtn ordered" : "orderedBtn"}
                     onClick={() => handleOrdered()}
@@ -47,7 +44,7 @@ const PieceCard = (props : PieceCardProps) => {
                 </button>
                 <button 
                     className={props.piece.isReceived ? "receivedBtn received" : "receivedBtn"}
-                    onClick={() => handleOrdered()}
+                    onClick={() => handleReceived()}
                 >
                     <img src="/icons/received.svg" alt="receive" width={24} height={24}/>
                 </button>
