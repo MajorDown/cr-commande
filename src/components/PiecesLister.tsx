@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { PiecesSuppliers } from "../data";
-import { ListOfPieces, PiecesSuppliersStates } from "../types";
+import { ListOfPieces, Piece, PiecesSuppliersStates } from "../types";
 import getPiecesSuppliersStates from "../CRUDRequests/getSuppliersStates";
 import getPiecesList from "../CRUDRequests/getPiecesList";
 import updatePiecesSuppliersStates from "../CRUDRequests/updateSuppliersStates";
@@ -18,6 +18,8 @@ const PiecesLister = () => {
   const [wantRerenderSuppliers, setWantRerenderSuppliers] = useState<boolean>(true);
   const [wantNewPiece, setWantNewPiece] = useState<boolean>(false);
   const [defaultPieceMark, setDefaultPieceMark] = useState<string>("");
+  const [wantEditPiece, setWantEditPiece] = useState<boolean>(false);
+  const [pieceToEdit, setPieceToEdit] = useState<Piece | null>(null);
   const [needToRefresh, setNeedToRefresh] = useState<boolean>(false);
 
   // RECUPERER LES ETATS DES FOURNISSEURS
@@ -63,14 +65,18 @@ const PiecesLister = () => {
     return piecesListStates
       .filter(piece => piece.supplier === supplier && piecesSuppliersStates?.find(s => s.supplier === supplier)?.wantToDisplay)
       .map((piece, index) => (
-        <PieceCard piece={piece} key={index} />
+        <PieceCard piece={piece} onEdit={(pieceToEdit) => handleEditPiece(pieceToEdit)} key={index} />
       ));
   };
 
   const handleNewPiece = (supplier: string) => {
     setWantNewPiece(true);
     setDefaultPieceMark(supplier);
+  }
 
+  const handleEditPiece = (piece: Piece) => {
+    setWantEditPiece(true);
+    setPieceToEdit(piece);
   }
 
   const handleRefresh = () => {
@@ -80,10 +86,12 @@ const PiecesLister = () => {
 
   return (
     <div className={"piecesList"}>
-      {wantNewPiece && 
-        <UIModal onClose={() => setWantNewPiece(false)}>
-          <AddNewPiecesForm defaultPieceMark={defaultPieceMark} onCreate={() => handleRefresh()}/>
-        </UIModal>}
+      {wantNewPiece && <UIModal onClose={() => setWantNewPiece(false)}>
+        <AddNewPiecesForm defaultPieceMark={defaultPieceMark} onCreate={() => handleRefresh()}/>
+      </UIModal>}
+      {wantEditPiece && pieceToEdit && <UIModal onClose={() => setWantEditPiece(false)}>
+        
+      </UIModal>}        
       <div className={"piecesListOptions"}>
         <div className={"suppliersSelector"}>
           <p>affichage des fournisseurs :</p>

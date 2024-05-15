@@ -3,10 +3,10 @@ import { Piece } from "../types";
 
 export type PieceCardProps = {
     piece: Piece
+    onEdit: (piece: Piece) => void
 }
 
 const PieceCard = (props : PieceCardProps) => {
-    const [isEditing, setIsEditing] = useState(false);
        
     // MISE EN FORME DE COMMANDEDATE AU FORMAT DD/MM/YY
     const getDateFormat = (date: Date): string => {
@@ -34,7 +34,7 @@ const PieceCard = (props : PieceCardProps) => {
     const handleDelete = () => {}
     
     return (
-        <div className={"pieceCard"} onDoubleClick={() => setIsEditing(!isEditing)}>
+        <div className={"pieceCard"} onDoubleClick={() => props.onEdit(props.piece)}>
             <div className={"pieceCardBtnsLeft"}>
                 <button 
                     className={props.piece.isOrdered ? "orderedBtn ordered" : "orderedBtn"}
@@ -61,20 +61,24 @@ const PieceCard = (props : PieceCardProps) => {
                     {props.piece.isClientWaitingFor.isSP && " SP"}                
                 </>)}
             </p>
-            <div className={"pieceCardBtnsRight"}>
-                {props.piece.moreInformation && <img 
-                    src="/icons/moreInfos.svg" 
-                    alt="more info" 
-                    width={16} 
-                    height={16}
-                />}
-                <button 
-                    className={"deleteBtn"}
-                    onClick={() => handleDelete()}
-                    >
-                    <img src="/icons/trash.svg" alt="delete" width={24} height={24}/>
-                </button>
+            <div className={"pieceCardInformations"}>
+                {props.piece.moreInformation && <>
+                    <img 
+                        src="/icons/moreInfos.svg" 
+                        alt="more info" 
+                        width={16} 
+                        height={16}
+                    />
+                    <p>{props.piece.moreInformation}</p>
+                </>
+                }
             </div>
+            <button 
+                className={"deleteBtn"}
+                onClick={() => handleDelete()}
+                >
+                <img src="/icons/trash.svg" alt="delete" width={24} height={24}/>
+            </button>
         </div>
   )
 }
