@@ -117,7 +117,8 @@ footer {
     cursor: pointer;
 }
 
-#addNewPieceForm {
+#addNewPieceForm,
+#editPieceForm {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -125,7 +126,13 @@ footer {
     width: 90vw;
 }
 
-#addNewPieceForm .inputWrapper {
+#addNewPieceForm h2,
+#editPieceForm h2 {
+    margin: 10px;
+    color: white;
+}
+
+.inputWrapper {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -134,24 +141,24 @@ footer {
     color: white
 }
 
-#addNewPieceForm .submitBtn {
+.submitBtn {
     cursor: pointer;
     margin: 10px;
     padding: 5px;
 }
 
-#addNewPieceForm .inputWrapper input,
-#addNewPieceForm .inputWrapper select,
-#addNewPieceForm .inputWrapper textarea {
+.inputWrapper input,
+.inputWrapper select,
+.inputWrapper textarea {
     padding: 5px;
     border-radius: 10px;
 }
 
-#addNewPieceForm .inputWrapper input[type="text"] {
+.inputWrapper input[type="text"] {
     width: 200px;
 }
 
-#addNewPieceForm .inputWrapper input[type="number"] {
+.inputWrapper input[type="number"] {
     width: 100px;
 }
 

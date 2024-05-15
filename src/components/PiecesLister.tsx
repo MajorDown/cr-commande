@@ -7,6 +7,7 @@ import updatePiecesSuppliersStates from "../CRUDRequests/updateSuppliersStates";
 import { PieceCard } from "./PieceCard";
 import UIModal from "./UIModal";
 import AddNewPiecesForm from "./AddNewPiecesForm";
+import EditPiecesForm from "./EditPieceForm";
 
 export type PiecesListProps = {
   listOfPieces : ListOfPieces;
@@ -90,7 +91,7 @@ const PiecesLister = () => {
         <AddNewPiecesForm defaultPieceMark={defaultPieceMark} onCreate={() => handleRefresh()}/>
       </UIModal>}
       {wantEditPiece && pieceToEdit && <UIModal onClose={() => setWantEditPiece(false)}>
-        
+        <EditPiecesForm pieceToEdit={pieceToEdit} onEdit={() => handleRefresh()}/>        
       </UIModal>}        
       <div className={"piecesListOptions"}>
         <div className={"suppliersSelector"}>

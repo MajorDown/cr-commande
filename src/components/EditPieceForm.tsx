@@ -4,23 +4,23 @@ import { Piece } from "../types";
 import createNewPiece from "../CRUDRequests/createNewPiece";
 
 
-type AddNewPiecesFormProps = {
-    defaultPieceMark: string;
-    onCreate: () => void;
+type EditPiecesFormProps = {
+    pieceToEdit: Piece;
+    onEdit: () => void;
 }
 
-const AddNewPiecesForm = (props: AddNewPiecesFormProps) => {
-    const [supplier, setSupplier] = useState<string>(props.defaultPieceMark);
-    const [pieceMark, setPieceMark] = useState<string>("");
-    const [pieceModel, setPieceModel] = useState<string>("");
-    const [pieceRef, setPieceRef] = useState<string>("");
-    const [pieceColor, setPieceColor] = useState<string>("");
-    const [quantity, setQuantity] = useState<number>(1);
-    const [isClientWaitingFor, setIsClientWaitingFor] = useState<boolean>(false);
-    const [supportNumber, setSupportNumber] = useState<string>("");
-    const [isDP, setIsDP] = useState<boolean>(false);
-    const [isSP, setIsSP] = useState<boolean>(false);
-    const [moreInformation, setMoreInformation] = useState<string>("");
+const EditPiecesForm = (props: EditPiecesFormProps) => {
+    const [supplier, setSupplier] = useState<string>(props.pieceToEdit.supplier);
+    const [pieceMark, setPieceMark] = useState<string>(props.pieceToEdit.pieceMark);
+    const [pieceModel, setPieceModel] = useState<string>(props.pieceToEdit.pieceModel);
+    const [pieceRef, setPieceRef] = useState<string>(props.pieceToEdit.pieceRef);
+    const [pieceColor, setPieceColor] = useState<string>(props.pieceToEdit.pieceColor || "");
+    const [quantity, setQuantity] = useState<number>(props.pieceToEdit.quantity);
+    const [isClientWaitingFor, setIsClientWaitingFor] = useState<boolean>(props.pieceToEdit.isClientWaitingFor ? true : false);
+    const [supportNumber, setSupportNumber] = useState<string>(props.pieceToEdit.isClientWaitingFor ? props.pieceToEdit.isClientWaitingFor.supportNumber : "");
+    const [isDP, setIsDP] = useState<boolean>(props.pieceToEdit.isClientWaitingFor ? props.pieceToEdit.isClientWaitingFor.isDP : false);
+    const [isSP, setIsSP] = useState<boolean>(props.pieceToEdit.isClientWaitingFor ? props.pieceToEdit.isClientWaitingFor.isSP : false);
+    const [moreInformation, setMoreInformation] = useState<string>(props.pieceToEdit.moreInformation || "");
 
     const handleSubmit = (event: FormEvent) => {
         event.preventDefault();
@@ -43,12 +43,12 @@ const AddNewPiecesForm = (props: AddNewPiecesFormProps) => {
         }
         const request = createNewPiece(newPiece);
         if (!request) alert("Erreur lors de l'ajout de la pièce");
-        else props.onCreate();
+        else props.onEdit();
     }
 
   return (
-    <form id={"addNewPieceForm"} onSubmit={(event: FormEvent) => handleSubmit(event)}>
-        <h2>Ajouter une nouvelle pièce en commande</h2>
+    <form id={"editPieceForm"} onSubmit={(event: FormEvent) => handleSubmit(event)}>
+        <h2>Modifier une pièce en commande</h2>
         <div className={"inputWrapper"}>
             <label htmlFor="commandeDate">Fournisseur :</label>
             <select
@@ -176,9 +176,9 @@ const AddNewPiecesForm = (props: AddNewPiecesFormProps) => {
                 onChange={(e) => setMoreInformation(e.target.value)}
             ></textarea>
         </div>
-        <button className={"submitBtn"} type="submit">Ajouter</button>
+        <button className={"submitBtn"} type="submit">Modifier</button>
     </form>
   )
 }
 
-export default AddNewPiecesForm;
+export default EditPiecesForm;
