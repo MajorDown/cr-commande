@@ -1,7 +1,7 @@
 import { FormEvent, useState } from "react";
 import { CommonSuppliers, PiecesSuppliers } from "../data";
 import { Piece } from "../types";
-import createNewPiece from "../CRUDRequests/createNewPiece";
+import updatePiecesList from "../CRUDRequests/updatePiecesList";
 
 
 type EditPiecesFormProps = {
@@ -25,7 +25,7 @@ const EditPiecesForm = (props: EditPiecesFormProps) => {
     const handleSubmit = (event: FormEvent) => {
         event.preventDefault();
         let newPiece: Piece = {
-            commandeDate: new Date(),
+            commandeDate: props.pieceToEdit.commandeDate,
             pieceMark: pieceMark,
             pieceModel: pieceModel,
             pieceRef: pieceRef,
@@ -41,8 +41,8 @@ const EditPiecesForm = (props: EditPiecesFormProps) => {
             isReceived: false,
             moreInformation: moreInformation
         }
-        const request = createNewPiece(newPiece);
-        if (!request) alert("Erreur lors de l'ajout de la pièce");
+        const request = updatePiecesList(newPiece);
+        if (!request) alert("Erreur lors de la modification de la pièce");
         else props.onEdit();
     }
 

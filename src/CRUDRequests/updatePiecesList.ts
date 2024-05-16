@@ -7,16 +7,29 @@ import getPiecesList from "./getPiecesList";
  * @returns {ListOfPieces} - The new list of pieces
  */
 const updatePiecesList = (piece: Piece): ListOfPieces => {
+    console.log("updatePiecesList : piece : ", piece);
     const piecesList = getPiecesList();
-    if (!piecesList) return [];
-    const pieceToUpdate= piecesList.find(p => p.commandeDate === piece.commandeDate);
-    if (!pieceToUpdate) return piecesList;
-    else {
-        const newPiecesList = piecesList.map(p => p === pieceToUpdate ? piece : p);
-        const stringifiedPiecesList = JSON.stringify(newPiecesList);
-        localStorage.setItem('CR-piecesList', stringifiedPiecesList);
+
+    // Si piecesList est vide, on ajoute la pièce
+    if (!piecesList || piecesList.length === 0) {
+        const newPiecesList = [piece];
+        localStorage.setItem('CR-piecesList', JSON.stringify(newPiecesList));
+        console.log("updatePiecesList : nouvelle liste (ajout) : ", newPiecesList);
         return newPiecesList;
     }
+
+    // Sinon, on cherche la pièce à modifier
+    const newPiecesList = piecesList.map(p => {
+        if (p.commandeDate === piece.commandeDate) {
+            return piece; // Mise à jour de la pièce
+        } else {
+            return p; // Retour de la pièce existante inchangée
+        }
+    });
+
+    localStorage.setItem('CR-piecesList', JSON.stringify(newPiecesList));
+    console.log("updatePiecesList : nouvelle liste : ", newPiecesList);
+    return newPiecesList;
 }
 
 export default updatePiecesList;

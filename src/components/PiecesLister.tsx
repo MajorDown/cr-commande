@@ -82,6 +82,7 @@ const PiecesLister = () => {
 
   const handleRefresh = () => {
     setWantNewPiece(false);
+    setWantEditPiece(false);
     setNeedToRefresh(true);
   }
 

@@ -237,7 +237,7 @@ footer {
 }
 
 .pieceCardInformations {
-    width: 20%;
+    width: 15%;
     display: flex;
     gap: 5px;
     justify-content: flex-start;
