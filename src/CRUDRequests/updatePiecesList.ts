@@ -7,17 +7,13 @@ import getPiecesList from "./getPiecesList";
  * @returns {ListOfPieces} - The new list of pieces
  */
 const updatePiecesList = (piece: Piece): ListOfPieces => {
-    console.log("updatePiecesList : piece : ", piece);
     const piecesList = getPiecesList();
-
     // Si piecesList est vide, on ajoute la pièce
     if (!piecesList || piecesList.length === 0) {
         const newPiecesList = [piece];
         localStorage.setItem('CR-piecesList', JSON.stringify(newPiecesList));
-        console.log("updatePiecesList : nouvelle liste (ajout) : ", newPiecesList);
         return newPiecesList;
     }
-
     // Sinon, on cherche la pièce à modifier
     const newPiecesList = piecesList.map(p => {
         if (p.commandeDate === piece.commandeDate) {
@@ -26,9 +22,7 @@ const updatePiecesList = (piece: Piece): ListOfPieces => {
             return p; // Retour de la pièce existante inchangée
         }
     });
-
     localStorage.setItem('CR-piecesList', JSON.stringify(newPiecesList));
-    console.log("updatePiecesList : nouvelle liste : ", newPiecesList);
     return newPiecesList;
 }
 

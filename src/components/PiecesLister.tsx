@@ -66,7 +66,11 @@ const PiecesLister = () => {
     return piecesListStates
       .filter(piece => piece.supplier === supplier && piecesSuppliersStates?.find(s => s.supplier === supplier)?.wantToDisplay)
       .map((piece, index) => (
-        <PieceCard piece={piece} onEdit={(pieceToEdit) => handleEditPiece(pieceToEdit)} key={index} />
+        <PieceCard 
+        piece={piece} 
+        onEdit={(pieceToEdit) => handleEditPiece(pieceToEdit)} key={index}
+        onDelete={() => setNeedToRefresh(true)} 
+      />
       ));
   };
 

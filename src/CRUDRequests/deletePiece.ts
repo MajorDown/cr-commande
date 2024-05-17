@@ -8,11 +8,16 @@ import getPiecesList from "./getPiecesList";
  * @returns {ListOfPieces | []} - The new list of pieces
  */
 const deletePiece = (piece: Piece): ListOfPieces | [] => {
+    console.log("function : deletePiece");
     const piecesList = getPiecesList();
     if (!piecesList) return [];
-    const newPiecesList = piecesList.filter(p => p !== piece);
+    console.log("piecesList :", piecesList);
+    const newPiecesList = piecesList.filter(p => p.commandeDate !== piece.commandeDate);
+    console.log("newPiecesList :", newPiecesList);
+
     const stringifiedPiecesList = JSON.stringify(newPiecesList);
     localStorage.setItem('CR-piecesList', stringifiedPiecesList);
+
     return newPiecesList;
 }
 

@@ -1,9 +1,11 @@
 import { useState } from "react";
 import { Piece } from "../types";
+import deletePiece from "../CRUDRequests/deletePiece";
 
 export type PieceCardProps = {
     piece: Piece
     onEdit: (piece: Piece) => void
+    onDelete: () => void;
 }
 
 const PieceCard = (props : PieceCardProps) => {
@@ -31,7 +33,11 @@ const PieceCard = (props : PieceCardProps) => {
     const handleReceived = () => {}
 
     // GERER LA SUPPRESSION DE LA PIECE
-    const handleDelete = () => {}
+    const handleDelete = () => {
+        console.log("delete piece");
+        deletePiece(props.piece);
+        props.onDelete();
+    }
     
     return (
         <div className={"pieceCard"} onDoubleClick={() => props.onEdit(props.piece)}>
@@ -80,7 +86,7 @@ const PieceCard = (props : PieceCardProps) => {
                 <img src="/icons/trash.svg" alt="delete" width={24} height={24}/>
             </button>
         </div>
-  )
+    )
 }
 
 export {PieceCard};
