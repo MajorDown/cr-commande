@@ -70,6 +70,7 @@ const PiecesLister = () => {
         piece={piece} 
         onEdit={(pieceToEdit) => handleEditPiece(pieceToEdit)} key={index}
         onDelete={() => setNeedToRefresh(true)} 
+        onActualise={() => setNeedToRefresh(true)}
       />
       ));
   };

@@ -1,11 +1,13 @@
 import { useState } from "react";
 import { Piece } from "../types";
 import deletePiece from "../CRUDRequests/deletePiece";
+import updatePiecesList from "../CRUDRequests/updatePiecesList";
 
 export type PieceCardProps = {
     piece: Piece
     onEdit: (piece: Piece) => void
     onDelete: () => void;
+    onActualise: () => void;
 }
 
 const PieceCard = (props : PieceCardProps) => {
@@ -27,14 +29,23 @@ const PieceCard = (props : PieceCardProps) => {
     }
 
     // GERER SI LA COMMANDE EST PASSEE
-    const handleOrdered = () => {}
+    const handleOrdered = () => {
+        let actualisedPiece = props.piece;
+        actualisedPiece.isOrdered = !actualisedPiece.isOrdered;
+        updatePiecesList(actualisedPiece);
+        props.onActualise();
+    }
 
     // GERER SI LA COMMANDE EST RECU
-    const handleReceived = () => {}
+    const handleReceived = () => {
+        let actualisedPiece = props.piece;
+        actualisedPiece.isReceived = !actualisedPiece.isReceived;
+        updatePiecesList(actualisedPiece);
+        props.onActualise();
+    }
 
     // GERER LA SUPPRESSION DE LA PIECE
     const handleDelete = () => {
-        console.log("delete piece");
         deletePiece(props.piece);
         props.onDelete();
     }
