@@ -1,6 +1,5 @@
 import { PropsWithChildren, useCallback, useEffect } from "react";
 
-// propsWithChildren
 type UIModalProps = PropsWithChildren & {
     onClose: (isClosed: boolean) => void;
 }

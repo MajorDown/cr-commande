@@ -13,6 +13,40 @@ header {
     justify-content: space-between;
 }
 
+#title {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+h1 {
+    font-style: italic;
+}
+
+#inOutManager {
+    margin: 5px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-start;
+    gap: 10px;
+}
+
+#inOutManager button {
+    background-color: transparent;
+    border: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    padding: 5px;
+    transition: 0.3s;
+}
+
+#inOutManager button:hover {
+    background-color: #f0f0f080;
+    border-radius: 5px;
+}
+
 main {
     display: flex;
     flex-direction: column;
