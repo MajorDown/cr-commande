@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { Piece } from "../types";
 import deletePiece from "../CRUDRequests/deletePiece";
 import updatePiecesList from "../CRUDRequests/updatePiecesList";

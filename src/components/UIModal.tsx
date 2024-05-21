@@ -1,4 +1,4 @@
-import { PropsWithChildren } from "react";
+import { PropsWithChildren, useCallback, useEffect } from "react";
 
 // propsWithChildren
 type UIModalProps = PropsWithChildren & {
@@ -6,6 +6,18 @@ type UIModalProps = PropsWithChildren & {
 }
 
 const UIModal = (props: UIModalProps) => {
+    const handleKeyDown = useCallback((event: KeyboardEvent) => {
+        if (event.key === "Escape") {
+            props.onClose(false);
+        }
+    }, [props]);
+
+    useEffect(() => {
+        document.addEventListener("keydown", handleKeyDown);
+        return () => {
+            document.removeEventListener("keydown", handleKeyDown);
+        };
+    }, [handleKeyDown]);
     
     return (
         <div className={"uiModal"}>

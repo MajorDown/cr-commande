@@ -72,6 +72,7 @@ footer {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    font-weight: 900;
 }
 
 .addNewPiece {
@@ -184,7 +185,7 @@ footer {
 }
 
 .pieceCard:hover {
-    background-color: mediumaquamarine
+    background-color: rgb(164, 193, 183)
 }
 
 .pieceCardBtnsLeft {
@@ -202,8 +203,8 @@ footer {
     align-items: center;
 }
 
-.ordered,
-.received {
+.orderedBtn.ordered,
+.receivedBtn.received {
     background-color: aquamarine;
     border-radius: 50%;
 }

@@ -117,13 +117,14 @@ const PiecesLister = () => {
         {PiecesSuppliers.map(supplier => (
           piecesSuppliersStates?.find(s => s.supplier === supplier)?.wantToDisplay && (
             <div className={`supplierLister`} key={supplier}>
-              <p className={"supplierName"}>{supplier}
-                  <button 
-                    className={"addNewPiece"}
-                    onClick={() => handleNewPiece(supplier)}
-                  >
-                    <strong>+</strong>
-                  </button>
+              <p className={"supplierName"}>
+                {supplier}
+                <button 
+                  className={"addNewPiece"}
+                  onClick={() => handleNewPiece(supplier)}
+                >
+                  <strong>+</strong>
+                </button>
               </p>
               <ul>{renderPiecesListerBySupplier(supplier)}</ul>              
             </div>
