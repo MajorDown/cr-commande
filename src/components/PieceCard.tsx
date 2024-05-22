@@ -10,7 +10,16 @@ export type PieceCardProps = {
 }
 
 const PieceCard = (props : PieceCardProps) => {
-       
+
+    //fonction permettant de controler si le commandDate date de plus de 7 jours
+    const isCommandDatTooOld = (date: Date): boolean => {
+        const today = new Date();
+        const commandeDate = new Date(date);
+        const diffTime = Math.abs(today.getTime() - commandeDate.getTime());
+        const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+        return diffDays > 7;
+    }
+
     // MISE EN FORME DE COMMANDEDATE AU FORMAT DD/MM/YY
     const getDateFormat = (date: Date): string => {
         // FONCTION POUR PADDING A 2 CHIFFRES
@@ -50,7 +59,7 @@ const PieceCard = (props : PieceCardProps) => {
     }
     
     return (
-        <div className={"pieceCard"} onDoubleClick={() => props.onEdit(props.piece)}>
+        <div className={isCommandDatTooOld(props.piece.commandeDate) ? "pieceCard tooOld" : "pieceCard"} onDoubleClick={() => props.onEdit(props.piece)}>
             <div className={"pieceCardBtnsLeft"}>
                 <button 
                     className={props.piece.isOrdered ? "orderedBtn ordered" : "orderedBtn"}

@@ -1,10 +1,7 @@
-import { useState } from "react";
 import getPiecesList from "../CRUDRequests/getPiecesList";
-import {ListOfPieces} from "../types";
 import setNewPiecesList from "../CRUDRequests/setNewPiecesList";
 
 const InOutManager = () => {
-    const [piecesList, setPiecesList] = useState<ListOfPieces>([]);
 
     // MISE EN FORME DE COMMANDEDATE AU FORMAT DD-MM-YY
     const getDateFormat = (date: Date): string => {
@@ -52,7 +49,6 @@ const InOutManager = () => {
         reader.onload = (e) => {
             try {
                 const json = JSON.parse(e.target?.result as string);
-                setPiecesList(json);
                 console.log("imported pieces:", json);
                 setNewPiecesList(json);                
             } catch (error) {
