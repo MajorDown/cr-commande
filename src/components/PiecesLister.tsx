@@ -21,6 +21,7 @@ const PiecesLister = () => {
   const [defaultPieceMark, setDefaultPieceMark] = useState<string>("");
   const [wantEditPiece, setWantEditPiece] = useState<boolean>(false);
   const [pieceToEdit, setPieceToEdit] = useState<Piece | null>(null);
+  const [wantToDisplayReceived, setWantToDisplayReceived] = useState<boolean>(false);
   const [needToRefresh, setNeedToRefresh] = useState<boolean>(false);
 
   // RECUPERER LES ETATS DES FOURNISSEURS
@@ -64,7 +65,11 @@ const PiecesLister = () => {
   const renderPiecesListerBySupplier = (supplier: string) => {
     if (!piecesListStates) return null;
     return piecesListStates
-      .filter(piece => piece.supplier === supplier && piecesSuppliersStates?.find(s => s.supplier === supplier)?.wantToDisplay)
+      .filter(piece => 
+        piece.supplier === supplier && 
+        piecesSuppliersStates?.find(s => s.supplier === supplier)?.wantToDisplay && 
+        (wantToDisplayReceived || !piece.isReceived)
+      )
       .map((piece, index) => (
         <PieceCard 
         piece={piece} 
@@ -111,6 +116,16 @@ const PiecesLister = () => {
               {supplier.supplier} ({piecesListStates?.filter(piece => piece.supplier === supplier.supplier).length})
             </button>
           ))}
+        </div>
+        <div className={"wantDisplayReceived"}>
+          <input 
+            type="checkbox" 
+            name="wantDisplayReceived" 
+            id="wantDisplayReceived"
+            checked={wantToDisplayReceived}
+            onChange={() => setWantToDisplayReceived(!wantToDisplayReceived)}
+          />
+          <label htmlFor="wantDisplayReceived">Afficher les pièces reçues</label>
         </div>
       </div>
       <div className={"piecesListContent"}>

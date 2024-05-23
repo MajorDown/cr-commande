@@ -50,7 +50,7 @@ const EditPiecesForm = (props: EditPiecesFormProps) => {
     <form id={"editPieceForm"} onSubmit={(event: FormEvent) => handleSubmit(event)}>
         <h2>Modifier une pièce en commande</h2>
         <div className={"inputWrapper"}>
-            <label htmlFor="commandeDate">Fournisseur :</label>
+            <label htmlFor="supplier">Fournisseur :</label>
             <select
                 required
                 name="supplier" 

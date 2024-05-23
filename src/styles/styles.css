@@ -109,6 +109,14 @@ footer {
     font-weight: 900;
 }
 
+.wantDisplayReceived {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 30px;
+    gap: 5px;
+}
+
 .addNewPiece {
     display: flex;
     justify-content: center;
