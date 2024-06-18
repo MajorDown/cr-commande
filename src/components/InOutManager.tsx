@@ -1,3 +1,4 @@
+import getCornerName from "../CRUDRequests/getCornerName";
 import getPiecesList from "../CRUDRequests/getPiecesList";
 import setNewPiecesList from "../CRUDRequests/setNewPiecesList";
 
@@ -20,12 +21,8 @@ const InOutManager = () => {
     }
 
     const handleExport = () => {
-        console.log("exporting...");
         const piecesList = getPiecesList();
-        const fileName = prompt("Entrez le nom de votre atelier :", "nom-de-l'atelier");
-        if (!fileName) {
-            return;
-        }
+        const fileName = getCornerName();
         const json = JSON.stringify(piecesList, null, 2);
         const blob = new Blob([json], { type: 'application/json' });
         const link = document.createElement('a');

@@ -15,6 +15,7 @@ function App() {
         setCornerName(cornerName);
         setActualCornerName(cornerName);
       }
+      else return;
     }
     else setActualCornerName(cornerName);
   }, []);
