@@ -1,5 +1,5 @@
 import { FormEvent, useState } from "react";
-import { CommonSuppliers, PiecesSuppliers } from "../data";
+import { CommonSuppliers, PiecesSuppliers, PiecesPrincipalTypes } from "../data";
 import { Piece } from "../types";
 import createNewPiece from "../CRUDRequests/createNewPiece";
 
@@ -97,7 +97,11 @@ const AddNewPiecesForm = (props: AddNewPiecesFormProps) => {
                 id="pieceRef" 
                 value={pieceRef}
                 onChange={(e) => setPieceRef(e.target.value)}
+                list={"piecePrincipalsRefList"}
             />
+            <datalist id={"piecePrincipalsRefList"}>
+                {PiecesPrincipalTypes.map((type, index) => (<option key={index} value={type}></option>))}
+            </datalist>
         </div>
         <div className={"inputWrapper"}>
             <label htmlFor="pieceColor">Couleur (facultatif):</label>
