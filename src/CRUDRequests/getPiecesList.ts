@@ -1,6 +1,7 @@
 import { ListOfPieces } from "../types";
 
 /**
+ * récupère la liste des pièces stockée dans le local storage
  * @returns {ListOfPieces | []} - The list of pieces stored in the local storage
  */
 

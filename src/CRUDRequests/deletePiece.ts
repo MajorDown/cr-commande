@@ -1,7 +1,7 @@
 import { ListOfPieces, Piece } from "../types";
 import getPiecesList from "./getPiecesList";
 
-//jsdoc
+
 /**
  * Deletes a piece from the list of pieces
  * @param {Piece} piece - The piece to delete
