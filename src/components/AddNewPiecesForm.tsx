@@ -9,6 +9,11 @@ type AddNewPiecesFormProps = {
     onCreate: () => void;
 }
 
+/**
+ * formulaire pour ajouter une nouvelle pièce en commande
+ * @param {AddNewPiecesFormProps} props
+ * @returns {JSX.Element}
+ */
 const AddNewPiecesForm = (props: AddNewPiecesFormProps) => {
     const [supplier, setSupplier] = useState<string>(props.defaultPieceMark);
     const [pieceMark, setPieceMark] = useState<string>("");

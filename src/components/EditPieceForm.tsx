@@ -9,6 +9,11 @@ type EditPiecesFormProps = {
     onEdit: () => void;
 }
 
+/**
+ * formulaire pour modifier une pièce en commande
+ * @param {EditPiecesFormProps} props
+ * @returns {JSX.Element}
+ */
 const EditPiecesForm = (props: EditPiecesFormProps) => {
     const [supplier, setSupplier] = useState<string>(props.pieceToEdit.supplier);
     const [pieceMark, setPieceMark] = useState<string>(props.pieceToEdit.pieceMark);

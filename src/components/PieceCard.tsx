@@ -9,6 +9,11 @@ export type PieceCardProps = {
     onActualise: () => void;
 }
 
+/**
+ * composant pour afficher une carte de pièce
+ * @param {PieceCardProps} props
+ * @returns {JSX.Element}
+ */
 const PieceCard = (props : PieceCardProps) => {
 
     //fonction permettant de controler si le commandDate date de plus de 7 jours

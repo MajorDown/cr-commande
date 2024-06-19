@@ -13,6 +13,11 @@ export type PiecesListProps = {
   listOfPieces : ListOfPieces;
 }
 
+/**
+ * composant pour lister les pièces en commande
+ * @param {PiecesListProps} props
+ * @returns {JSX.Element}
+ */
 const PiecesLister = () => {
   const [piecesSuppliersStates, setPiecesSuppliersStates] = useState<PiecesSuppliersStates>();
   const [piecesListStates, setPiecesListStates] = useState<ListOfPieces | []>();

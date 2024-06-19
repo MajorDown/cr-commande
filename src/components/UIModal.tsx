@@ -4,6 +4,11 @@ type UIModalProps = PropsWithChildren & {
     onClose: (isClosed: boolean) => void;
 }
 
+/**
+ * composant pour afficher une modal
+ * @param {UIModalProps} props
+ * @returns {JSX.Element}
+ */
 const UIModal = (props: UIModalProps) => {
     const handleKeyDown = useCallback((event: KeyboardEvent) => {
         if (event.key === "Escape") {

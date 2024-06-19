@@ -2,6 +2,10 @@ import getCornerName from "../CRUDRequests/getCornerName";
 import getPiecesList from "../CRUDRequests/getPiecesList";
 import setNewPiecesList from "../CRUDRequests/setNewPiecesList";
 
+/**
+ * composant pour gérer l'import et l'export de la liste de pièces
+ * @returns {JSX.Element}
+ */
 const InOutManager = () => {
 
     // MISE EN FORME DE COMMANDEDATE AU FORMAT DD-MM-YY

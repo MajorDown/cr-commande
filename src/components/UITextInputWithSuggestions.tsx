@@ -6,6 +6,11 @@ type UITextInputWithSuggestionsProps = {
     onChange: (value: string) => void;
 };
 
+/**
+ * composant pour afficher un champ de texte avec des suggestions
+ * @param {UITextInputWithSuggestionsProps} props
+ * @returns {JSX.Element}
+ */
 const UITextInputWithSuggestions = ({ suggestionsData, onChange }: UITextInputWithSuggestionsProps) => {
     const [value, setValue] = useState('');
     const [suggestionsList, setSuggestionsList] = useState<string[]>([]);
