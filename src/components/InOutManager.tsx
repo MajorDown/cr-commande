@@ -1,12 +1,19 @@
+import { useState } from "react";
+import { PDFViewer } from '@react-pdf/renderer';
 import getCornerName from "../CRUDRequests/getCornerName";
 import getPiecesList from "../CRUDRequests/getPiecesList";
 import setNewPiecesList from "../CRUDRequests/setNewPiecesList";
+import UIModal from "./UIModal";
+import PdfReport from "./PdfReport";
+
+
 
 /**
  * composant pour gérer l'import et l'export de la liste de pièces
  * @returns {JSX.Element}
  */
 const InOutManager = () => {
+    const [wantExportToPdf, setWantExportToPdf] = useState<boolean>(false);
 
     // MISE EN FORME DE COMMANDEDATE AU FORMAT DD-MM-YY
     const getDateFormat = (date: Date): string => {
@@ -62,7 +69,13 @@ const InOutManager = () => {
         window.location.reload();
     }
 
-    return (
+    return (<>
+        {wantExportToPdf && <UIModal onClose={() => setWantExportToPdf(false)}>
+            <button>Exporter en PDF</button>
+            <PDFViewer>
+                <PdfReport />
+            </PDFViewer>
+        </UIModal>}
         <div id={"inOutManager"}>
             <input
                 type="file"
@@ -83,8 +96,13 @@ const InOutManager = () => {
                 exporter
                 <img src="/icons/export.svg" alt="export" width={24} height={24} />
             </button>
+            <button
+                onClick={() => setWantExportToPdf(true)}            
+            >
+                <img src="/icons/pdf.svg" alt="to pdf" width={24} height={24} />
+            </button>
         </div>
-    )
+    </>)
 }
 
 export default InOutManager;
