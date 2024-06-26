@@ -147,6 +147,8 @@ footer {
     height: 90vh;
     overflow-y: auto;
     overflow-x: hidden;
+    display: flex;
+    justify-content: center;
 }
 
 .uiModalCloseBtn {

@@ -71,8 +71,7 @@ const InOutManager = () => {
 
     return (<>
         {wantExportToPdf && <UIModal onClose={() => setWantExportToPdf(false)}>
-            <button>Exporter en PDF</button>
-            <PDFViewer>
+            <PDFViewer width={750} height={750*297/210}>
                 <PdfReport />
             </PDFViewer>
         </UIModal>}
