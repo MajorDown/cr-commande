@@ -25,6 +25,7 @@ const AddNewPiecesForm = (props: AddNewPiecesFormProps) => {
     const [supportNumber, setSupportNumber] = useState<string>("");
     const [isDP, setIsDP] = useState<boolean>(false);
     const [isSP, setIsSP] = useState<boolean>(false);
+    const [isSav, setIsSav] = useState<boolean>(false);
     const [moreInformation, setMoreInformation] = useState<string>("");
 
     const handleSubmit = (event: FormEvent) => {
@@ -40,7 +41,8 @@ const AddNewPiecesForm = (props: AddNewPiecesFormProps) => {
             isClientWaitingFor: isClientWaitingFor ? {
                 supportNumber: supportNumber,
                 isDP: isDP,
-                isSP: isSP
+                isSP: isSP,
+                isSav: isSav
             } : false,
             isOrdered: false,
             isReceived: false,
@@ -161,6 +163,16 @@ const AddNewPiecesForm = (props: AddNewPiecesFormProps) => {
                     id="isDP" 
                     checked={isDP}
                     onChange={(e) => setIsDP(e.target.checked)}
+                />
+            </div>
+            <div className={"inputWrapper"}>
+                <label htmlFor="isSP">S'agit-il d'un SAV ?</label>
+                <input 
+                    type="checkbox" 
+                    name="isSav" 
+                    id="isSav" 
+                    checked={isSav}
+                    onChange={(e) => setIsSav(e.target.checked)}
                 />
             </div>
             <div className={"inputWrapper"}>

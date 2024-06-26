@@ -86,9 +86,10 @@ const PieceCard = (props : PieceCardProps) => {
             <p className={"quantity"}>x{props.piece.quantity}</p>
             <p className={"isClientWaitingFor"}>
                 {props.piece.isClientWaitingFor && (<>
-                    {props.piece.isClientWaitingFor.supportNumber} : 
+                    {props.piece.isClientWaitingFor.supportNumber}: 
                     {props.piece.isClientWaitingFor.isDP && " DP"}
-                    {props.piece.isClientWaitingFor.isSP && " SP"}                
+                    {props.piece.isClientWaitingFor.isSav && " SAV"}                
+                    {props.piece.isClientWaitingFor.isSP && " SP"}
                 </>)}
             </p>
             <div className={"pieceCardInformations"}>

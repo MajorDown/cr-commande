@@ -9,7 +9,8 @@ export type Piece = {
     isClientWaitingFor: false | {
         supportNumber: string,
         isDP: boolean,
-        isSP: boolean
+        isSP: boolean,
+        isSav?: boolean
     }
     isOrdered: boolean,
     isReceived: boolean

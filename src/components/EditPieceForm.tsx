@@ -25,6 +25,7 @@ const EditPiecesForm = (props: EditPiecesFormProps) => {
     const [supportNumber, setSupportNumber] = useState<string>(props.pieceToEdit.isClientWaitingFor ? props.pieceToEdit.isClientWaitingFor.supportNumber : "");
     const [isDP, setIsDP] = useState<boolean>(props.pieceToEdit.isClientWaitingFor ? props.pieceToEdit.isClientWaitingFor.isDP : false);
     const [isSP, setIsSP] = useState<boolean>(props.pieceToEdit.isClientWaitingFor ? props.pieceToEdit.isClientWaitingFor.isSP : false);
+    const [isSav, setIsSav] = useState<boolean>(props.pieceToEdit.isClientWaitingFor && props.pieceToEdit.isClientWaitingFor.isSav? props.pieceToEdit.isClientWaitingFor.isSav : false);
     const [moreInformation, setMoreInformation] = useState<string>(props.pieceToEdit.moreInformation || "");
 
     const handleSubmit = (event: FormEvent) => {
@@ -40,7 +41,8 @@ const EditPiecesForm = (props: EditPiecesFormProps) => {
             isClientWaitingFor: isClientWaitingFor ? {
                 supportNumber: supportNumber,
                 isDP: isDP,
-                isSP: isSP
+                isSP: isSP,
+                isSav: isSav
             } : false,
             isOrdered: false,
             isReceived: false,
@@ -157,6 +159,16 @@ const EditPiecesForm = (props: EditPiecesFormProps) => {
                     id="isDP" 
                     checked={isDP}
                     onChange={(e) => setIsDP(e.target.checked)}
+                />
+            </div>
+            <div className={"inputWrapper"}>
+                <label htmlFor="isSP">S'agit-il d'un SAV ?</label>
+                <input 
+                    type="checkbox" 
+                    name="isSav" 
+                    id="isSav" 
+                    checked={isSav}
+                    onChange={(e) => setIsSav(e.target.checked)}
                 />
             </div>
             <div className={"inputWrapper"}>
