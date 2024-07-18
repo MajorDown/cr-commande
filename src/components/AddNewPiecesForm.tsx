@@ -143,6 +143,7 @@ const AddNewPiecesForm = (props: AddNewPiecesFormProps) => {
                 checked={isClientWaitingFor}
                 onChange={(e) => setIsClientWaitingFor(e.target.checked)}
             />
+            {!isClientWaitingFor && <p>(NB : les pièces qui ne sont pas en attente client seront notées "pour stock")</p>}
         </div>
         {isClientWaitingFor && <>
             <div className={"inputWrapper"}>

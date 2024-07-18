@@ -132,13 +132,13 @@ const EditPiecesForm = (props: EditPiecesFormProps) => {
         <div className={"inputWrapper"}>
             <label htmlFor="isClientWaitingFor">En attente pour client(s):</label>
             <input 
-
                 type="checkbox" 
                 name="isClientWaitingFor" 
                 id="isClientWaitingFor" 
                 checked={isClientWaitingFor}
                 onChange={(e) => setIsClientWaitingFor(e.target.checked)}
             />
+            {!isClientWaitingFor && <p>(NB : les pièces qui ne sont pas en attente client seront notées "pour stock")</p>}
         </div>
         {isClientWaitingFor && <>
             <div className={"inputWrapper"}>

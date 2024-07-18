@@ -91,6 +91,7 @@ const PieceCard = (props : PieceCardProps) => {
                     {props.piece.isClientWaitingFor.isSav && " SAV"}                
                     {props.piece.isClientWaitingFor.isSP && " SP"}
                 </>)}
+                {!props.piece.isClientWaitingFor && "(pour stock)"}
             </p>
             <div className={"pieceCardInformations"}>
                 {props.piece.moreInformation && <>
