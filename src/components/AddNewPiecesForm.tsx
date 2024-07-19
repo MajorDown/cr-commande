@@ -26,6 +26,7 @@ const AddNewPiecesForm = (props: AddNewPiecesFormProps) => {
     const [isDP, setIsDP] = useState<boolean>(false);
     const [isSP, setIsSP] = useState<boolean>(false);
     const [isSav, setIsSav] = useState<boolean>(false);
+    const [isResell, setIsResell] = useState<boolean>(false);
     const [moreInformation, setMoreInformation] = useState<string>("");
 
     const handleSubmit = (event: FormEvent) => {
@@ -42,7 +43,8 @@ const AddNewPiecesForm = (props: AddNewPiecesFormProps) => {
                 supportNumber: supportNumber,
                 isDP: isDP,
                 isSP: isSP,
-                isSav: isSav
+                isSav: isSav,
+                isResell: isResell
             } : false,
             isOrdered: false,
             isReceived: false,
@@ -134,20 +136,19 @@ const AddNewPiecesForm = (props: AddNewPiecesFormProps) => {
             />
         </div>
         <div className={"inputWrapper"}>
-            <label htmlFor="isClientWaitingFor">En attente pour client(s):</label>
+            <label htmlFor="isClientWaitingFor">En attente (pour client ou revente):</label>
             <input 
-
                 type="checkbox" 
                 name="isClientWaitingFor" 
                 id="isClientWaitingFor" 
                 checked={isClientWaitingFor}
                 onChange={(e) => setIsClientWaitingFor(e.target.checked)}
             />
-            {!isClientWaitingFor && <p>(NB : les pièces qui ne sont pas en attente client seront notées "pour stock")</p>}
+            {!isClientWaitingFor && <p>(NB : les pièces qui ne sont pas en attente seront notées "pour stock")</p>}
         </div>
         {isClientWaitingFor && <>
             <div className={"inputWrapper"}>
-                <label htmlFor="supportNumber">numéro de commande :</label>
+                <label htmlFor="supportNumber">numéro de dossier / nom :</label>
                 <input 
                     type="text"
                     name={"supportNumber"} 
@@ -167,7 +168,7 @@ const AddNewPiecesForm = (props: AddNewPiecesFormProps) => {
                 />
             </div>
             <div className={"inputWrapper"}>
-                <label htmlFor="isSP">S'agit-il d'un SAV ?</label>
+                <label htmlFor="isSav">S'agit-il d'un SAV ?</label>
                 <input 
                     type="checkbox" 
                     name="isSav" 
@@ -176,6 +177,16 @@ const AddNewPiecesForm = (props: AddNewPiecesFormProps) => {
                     onChange={(e) => setIsSav(e.target.checked)}
                 />
             </div>
+            <div className={"inputWrapper"}>
+                <label htmlFor="isReselle">S'agit-il d'une pièce pour un reconditionnement ?</label>
+                <input 
+                    type="checkbox" 
+                    name="isResell" 
+                    id="isResell" 
+                    checked={isResell}
+                    onChange={(e) => setIsResell(e.target.checked)}
+                />
+            </div>            
             <div className={"inputWrapper"}>
                 <label htmlFor="isSP">L'appareil est sur place dans l'atelier (SP) ?</label>
                 <input 

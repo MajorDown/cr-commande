@@ -26,6 +26,7 @@ const EditPiecesForm = (props: EditPiecesFormProps) => {
     const [isDP, setIsDP] = useState<boolean>(props.pieceToEdit.isClientWaitingFor ? props.pieceToEdit.isClientWaitingFor.isDP : false);
     const [isSP, setIsSP] = useState<boolean>(props.pieceToEdit.isClientWaitingFor ? props.pieceToEdit.isClientWaitingFor.isSP : false);
     const [isSav, setIsSav] = useState<boolean>(props.pieceToEdit.isClientWaitingFor && props.pieceToEdit.isClientWaitingFor.isSav? props.pieceToEdit.isClientWaitingFor.isSav : false);
+    const [isResell, setIsResell] = useState<boolean>(props.pieceToEdit.isClientWaitingFor && props.pieceToEdit.isClientWaitingFor.isResell? props.pieceToEdit.isClientWaitingFor.isResell : false);
     const [moreInformation, setMoreInformation] = useState<string>(props.pieceToEdit.moreInformation || "");
 
     const handleSubmit = (event: FormEvent) => {
@@ -42,7 +43,8 @@ const EditPiecesForm = (props: EditPiecesFormProps) => {
                 supportNumber: supportNumber,
                 isDP: isDP,
                 isSP: isSP,
-                isSav: isSav
+                isSav: isSav,
+                isResell: isResell
             } : false,
             isOrdered: false,
             isReceived: false,
@@ -130,7 +132,7 @@ const EditPiecesForm = (props: EditPiecesFormProps) => {
             />
         </div>
         <div className={"inputWrapper"}>
-            <label htmlFor="isClientWaitingFor">En attente pour client(s):</label>
+            <label htmlFor="isClientWaitingFor">En attente (pour client ou revente):</label>
             <input 
                 type="checkbox" 
                 name="isClientWaitingFor" 
@@ -138,11 +140,11 @@ const EditPiecesForm = (props: EditPiecesFormProps) => {
                 checked={isClientWaitingFor}
                 onChange={(e) => setIsClientWaitingFor(e.target.checked)}
             />
-            {!isClientWaitingFor && <p>(NB : les pièces qui ne sont pas en attente client seront notées "pour stock")</p>}
+            {!isClientWaitingFor && <p>(NB : les pièces qui ne sont pas en attente seront notées "pour stock")</p>}
         </div>
         {isClientWaitingFor && <>
             <div className={"inputWrapper"}>
-                <label htmlFor="supportNumber">numéro de commande :</label>
+                <label htmlFor="supportNumber">numéro de dossier / nom :</label>
                 <input 
                     type="text"
                     name={"supportNumber"} 
@@ -171,6 +173,16 @@ const EditPiecesForm = (props: EditPiecesFormProps) => {
                     onChange={(e) => setIsSav(e.target.checked)}
                 />
             </div>
+            <div className={"inputWrapper"}>
+                <label htmlFor="isReselle">S'agit-il d'une pièce pour un reconditionnement ?</label>
+                <input 
+                    type="checkbox" 
+                    name="isResell" 
+                    id="isResell" 
+                    checked={isResell}
+                    onChange={(e) => setIsResell(e.target.checked)}
+                />
+            </div> 
             <div className={"inputWrapper"}>
                 <label htmlFor="isSP">L'appareil est sur place dans l'atelier (SP) ?</label>
                 <input 

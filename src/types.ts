@@ -10,7 +10,8 @@ export type Piece = {
         supportNumber: string,
         isDP: boolean,
         isSP: boolean,
-        isSav?: boolean
+        isSav?: boolean,
+        isResell?: boolean
     }
     isOrdered: boolean,
     isReceived: boolean
