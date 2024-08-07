@@ -64,7 +64,13 @@ const PieceCard = (props : PieceCardProps) => {
     }
     
     return (
-        <div className={isCommandDatTooOld(props.piece.commandeDate) ? "pieceCard tooOld" : "pieceCard"} onDoubleClick={() => props.onEdit(props.piece)}>
+        <div 
+            className={
+                props.piece.isReceived ? "pieceCard isReceived" : "pieceCard" &&          
+                isCommandDatTooOld(props.piece.commandeDate) ? "pieceCard tooOld" : "pieceCard"
+            } 
+            onDoubleClick={() => props.onEdit(props.piece)}
+        >
             <div className={"pieceCardBtnsLeft"}>
                 <button 
                     className={props.piece.isOrdered ? "orderedBtn ordered" : "orderedBtn"}
