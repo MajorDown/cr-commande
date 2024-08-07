@@ -88,10 +88,8 @@ const PiecesLister = () => {
   const getFilteredPieceCount = (supplier: string) => {
     if (!piecesListStates) return 0;
     return piecesListStates
-      .filter(piece => 
-        piece.supplier === supplier &&
-        (wantToDisplayReceived ? piece.isReceived : !piece.isReceived)
-      ).length;
+      .filter(piece => piece.supplier === supplier && !piece.isReceived)
+      .length;
   };
 
   const handleNewPiece = (supplier: string) => {
