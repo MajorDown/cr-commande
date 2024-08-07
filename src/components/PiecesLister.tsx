@@ -85,6 +85,15 @@ const PiecesLister = () => {
       ));
   };
 
+  const getFilteredPieceCount = (supplier: string) => {
+    if (!piecesListStates) return 0;
+    return piecesListStates
+      .filter(piece => 
+        piece.supplier === supplier &&
+        (wantToDisplayReceived || !piece.isReceived)
+      ).length;
+  };
+
   const handleNewPiece = (supplier: string) => {
     setWantNewPiece(true);
     setDefaultPieceMark(supplier);
@@ -118,7 +127,7 @@ const PiecesLister = () => {
               key={index}
               onClick={() => handleSupplierStateChange(index)}
             >
-              {supplier.supplier} ({piecesListStates?.filter(piece => piece.supplier === supplier.supplier).length})
+              {supplier.supplier} ({getFilteredPieceCount(supplier.supplier)})
             </button>
           ))}
         </div>
