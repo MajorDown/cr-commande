@@ -90,7 +90,7 @@ const PiecesLister = () => {
     return piecesListStates
       .filter(piece => 
         piece.supplier === supplier &&
-        (wantToDisplayReceived || !piece.isReceived)
+        (wantToDisplayReceived ? piece.isReceived : !piece.isReceived)
       ).length;
   };
 
