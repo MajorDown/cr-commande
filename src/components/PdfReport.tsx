@@ -33,8 +33,13 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'row',
     gap: 10
+  },
+  isOrdered: {
+    backgroundColor: 'rgb(222, 241, 210)'
+  },
+  isReceived: {
+    backgroundColor: 'rgb(188, 214, 205)'
   }
-
 });
 
 // Helper function to get unique suppliers
@@ -65,10 +70,10 @@ const PdfReport = () => {
         </View>
         {piecesList && getUniqueSuppliers(piecesList).map(supplier => (
           <View key={supplier} style={styles.supplierSection}>
-            <Text style={styles.text}>{supplier}</Text>
+            <Text style={styles.text}>{supplier} ({piecesList.filter(piece => piece.supplier === supplier).length} lignes)</Text>
             <View style={styles.piecesList}>
               {piecesList.filter(piece => piece.supplier === supplier).map((piece, index) => (
-                <View key={index} style={styles.pieceLine}>
+                <View key={index} style={piece.isReceived && [styles.pieceLine, styles.isReceived] || piece.isOrdered && [styles.pieceLine, styles.isOrdered] || styles.pieceLine}>
                   <Text style={styles.text}>{new Date(piece.commandeDate).toLocaleDateString()}: </Text>
                   <Text style={styles.text}>{piece.pieceMark} {piece.pieceModel}</Text>
                   <Text style={styles.text}>{piece.pieceRef} x{piece.quantity}{piece.pieceColor ? `(${piece.pieceColor})` : ""}</Text>
